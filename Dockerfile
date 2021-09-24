@@ -31,6 +31,6 @@ RUN /opt/software/bin/conda install --quiet --yes \
     samtools \
     bioconda::macs2 \
     bioconda::salmon && \
-    conda clean --all -f -y
+    /opt/software/bin/conda clean --all -f -y
 
 ENV PATH "${PATH}:/opt/software/bin"    
