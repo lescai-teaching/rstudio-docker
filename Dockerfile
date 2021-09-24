@@ -1,6 +1,17 @@
 FROM rocker/verse:4.1.0
 
-RUN install2.r DESeq2,VariantAnnotation,GenomicRanges,rtracklayer,Gviz,chipseq,tximport,tximeta,qqman,plotly
+RUN install2.r --error \
+    --deps TRUE \ 
+    DESeq2 \
+    VariantAnnotation \
+    GenomicRanges \
+    rtracklayer \
+    Gviz \
+    chipseq \
+    tximport \
+    tximeta \
+    qqman \
+    plotly
 
 RUN install2.r rmarkdown,knitr
 
