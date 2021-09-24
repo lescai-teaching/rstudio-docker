@@ -1,4 +1,4 @@
-FROM rocker/verse:4.1.0
+FROM rocker/rstudio
 
 
 RUN apt-get update && \
