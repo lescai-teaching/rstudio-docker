@@ -1,4 +1,4 @@
-FROM rocker/rstudio
+FROM ghcr.io/intensive-school-virology-unipv/rstudio:main
 
 
 RUN apt-get update && \
@@ -8,20 +8,20 @@ ENV CPLUS_INCLUDE_PATH "/usr/include/gdal"
 ENV C_INCLUDE_PATH "/usr/include/gdal"
 
 
-RUN Rscript -e "install.packages('BiocManager', repos = 'https://cloud.r-project.org')"
+# RUN Rscript -e "install.packages('BiocManager', repos = 'https://cloud.r-project.org')"
 
-RUN Rscript -e "BiocManager::install(c(\
-    'tidyverse', \
-    'Gviz', \
-    'VariantAnnotation', \
-    'GenomicFeatures', \
-    'rtracklayer', \
-    'Biostrings', \
-    'knitr'\
-    ))"
+# RUN Rscript -e "BiocManager::install(c(\
+#     'tidyverse', \
+#     'Gviz', \
+#     'VariantAnnotation', \
+#     'GenomicFeatures', \
+#     'rtracklayer', \
+#     'Biostrings', \
+#     'knitr'\
+#     ))"
 
-RUN Rscript -e "install.packages('kableExtra', repos = 'https://cloud.r-project.org')"
-RUN Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
+# RUN Rscript -e "install.packages('kableExtra', repos = 'https://cloud.r-project.org')"
+# RUN Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
 
 RUN Rscript -e "BiocManager::install(c(\
     'DESeq2', \
@@ -38,14 +38,6 @@ WORKDIR /opt/software
 
 RUN apt-get update
 RUN apt-get install -y wget curl \
-    cmake \
-    build-essential \
-    g++ \
-    python-dev \
-    autotools-dev \
-    libicu-dev \
-    libbz2-dev \
-    libboost-all-dev \
     python3 python3-pip
 
 RUN archi=`arch` && \
