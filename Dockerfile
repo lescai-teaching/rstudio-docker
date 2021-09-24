@@ -14,8 +14,8 @@ RUN Rscript -e "BiocManager::install(c(\
 RUN mkdir -p /opt/software
 WORKDIR /opt/software
 
-RUN apt-get install -y wget curl \
-    python3 python3-pip
+# RUN apt-get install -y wget curl \
+#     python3 python3-pip
 
 RUN archi=`arch` && \
     if [[ $archi == 'arm64' ]]; then wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh && \
