@@ -23,11 +23,11 @@ RUN archi=`arch` && \
     else wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
     bash Miniforge3-Linux-x86_64.sh -b -f -p /opt/software; fi
 
-RUN conda config --system --prepend channels bioconda
-RUN conda config --system --prepend channels conda-forge
-RUN conda config --system --prepend channels defaults
+RUN /opt/software/bin/conda config --system --prepend channels bioconda
+RUN /opt/software/bin/conda config --system --prepend channels conda-forge
+RUN /opt/software/bin/conda config --system --prepend channels defaults
 
-RUN conda install --quiet --yes \
+RUN /opt/software/bin/conda install --quiet --yes \
     samtools \
     bioconda::macs2 \
     bioconda::salmon && \
