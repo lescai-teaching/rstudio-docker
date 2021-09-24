@@ -1,4 +1,4 @@
-FROM rocker/verse:3.6.3
+FROM rocker/verse:4.1.0
 
 
 RUN apt-get update && \
@@ -7,29 +7,31 @@ RUN apt-get update && \
 ENV CPLUS_INCLUDE_PATH "/usr/include/gdal"
 ENV C_INCLUDE_PATH "/usr/include/gdal"
 
-RUN install2.r --error \
-    --deps TRUE \ 
-    VariantAnnotation \
-    GenomicRanges \
-    Biostrings \
-    rtracklayer \
-    Gviz
 
-RUN install2.r --error \
-    --deps TRUE \ 
-    DESeq2 \
-    tximport \
-    tximeta
+RUN Rscript -e "install.packages('BiocManager', repos = 'https://cloud.r-project.org')"
 
-RUN install2.r --error \
-    --deps TRUE \ 
-    chipseq \
+RUN Rscript -e "BiocManager::install(c(\
+    'tidyverse', \
+    'Gviz', \
+    'VariantAnnotation', \
+    'GenomicFeatures', \
+    'rtracklayer', \
+    'Biostrings', \
+    'knitr'\
+    ))"
 
-RUN install2.r --error \
-    --deps TRUE \
-    remotes \
-    rmarkdown \
-    knitr
+RUN Rscript -e "install.packages('kableExtra', repos = 'https://cloud.r-project.org')"
+RUN Rscript -e "install.packages('remotes', repos = 'https://cloud.r-project.org')"
+
+RUN Rscript -e "BiocManager::install(c(\
+    'DESeq2', \
+    'tximport', \
+    'tximeta' \
+    ))"
+
+RUN Rscript -e "BiocManager::install(c(\
+    'chipseq'\
+    ))"
 
 RUN mkdir -p /opt/software
 WORKDIR /opt/software
