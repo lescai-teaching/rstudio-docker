@@ -1,23 +1,26 @@
 FROM rocker/verse:4.1.0
 
+
+RUN apt-get update && \
+    apt-get install -y libgdal-dev
+
+ENV CPLUS_INCLUDE_PATH "/usr/include/gdal"
+ENV C_INCLUDE_PATH "/usr/include/gdal"
+
 RUN install2.r --error \
     --deps TRUE \ 
     DESeq2 \
     VariantAnnotation \
     GenomicRanges \
+    Biostrings \
     rtracklayer \
     Gviz \
     chipseq \
     tximport \
     tximeta \
-    qqman \
-    plotly
-
-RUN install2.r --error \
-    --deps TRUE \ 
+    remotes \
     rmarkdown \
     knitr
-
 
 RUN mkdir -p /opt/software
 WORKDIR /opt/software
