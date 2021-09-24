@@ -19,9 +19,9 @@ WORKDIR /opt/software
 
 RUN archi=`arch` && \
     if [[ $archi == 'arm64' ]]; then wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh && \
-    bash Miniforge3-Linux-aarch64.sh -b -f -p /usr/local; \
+    bash Miniforge3-Linux-aarch64.sh -b -f -p /opt/software; \
     else wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
-    bash Miniforge3-Linux-x86_64.sh -b -f -p /usr/local; fi
+    bash Miniforge3-Linux-x86_64.sh -b -f -p /opt/software; fi
 
 RUN conda config --system --prepend channels bioconda
 RUN conda config --system --prepend channels conda-forge
@@ -33,4 +33,4 @@ RUN conda install --quiet --yes \
     bioconda::salmon && \
     conda clean --all -f -y
 
-    
+ENV PATH "${PATH}:/opt/software/bin"    
