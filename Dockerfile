@@ -1,4 +1,4 @@
-FROM rocker/verse:4.1.0
+FROM rocker/verse:4.0.0
 
 
 RUN apt-get update && \
@@ -9,15 +9,24 @@ ENV C_INCLUDE_PATH "/usr/include/gdal"
 
 RUN install2.r --error \
     --deps TRUE \ 
-    DESeq2 \
     VariantAnnotation \
     GenomicRanges \
     Biostrings \
     rtracklayer \
-    Gviz \
-    chipseq \
+    Gviz
+
+RUN install2.r --error \
+    --deps TRUE \ 
+    DESeq2 \
     tximport \
-    tximeta \
+    tximeta
+
+RUN install2.r --error \
+    --deps TRUE \ 
+    chipseq \
+
+RUN install2.r --error \
+    --deps TRUE \
     remotes \
     rmarkdown \
     knitr
