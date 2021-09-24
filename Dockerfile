@@ -13,7 +13,10 @@ RUN install2.r --error \
     qqman \
     plotly
 
-RUN install2.r rmarkdown,knitr
+RUN install2.r --error \
+    --deps TRUE \ 
+    rmarkdown \
+    knitr
 
 
 RUN mkdir -p /opt/software
