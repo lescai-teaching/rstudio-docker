@@ -4,6 +4,7 @@ FROM ghcr.io/lescai-teaching/rstudio-docker-arm64:1.0.0
 ## the base image has mambaforge
 ## at /usr/local/mambaforge/
 
+
 ### samtools not available on arm64 repos
 RUN apt-get install -y samtools
 
