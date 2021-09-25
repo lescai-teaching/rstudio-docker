@@ -48,7 +48,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./arm64/.
+          context: ./arm64_v2/.
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/arm64
           push: true
