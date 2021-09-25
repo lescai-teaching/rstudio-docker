@@ -12,16 +12,12 @@ RUN Rscript -e "BiocManager::install(c(\
     ))"
 
 RUN mkdir -p /opt/software
-WORKDIR /opt/software
 
-# RUN apt-get install -y wget curl \
-#     python3 python3-pip
+RUN apt-get update
+RUN apt-get install -y python3 python3-pip wget
 
-RUN archi=`arch` && \
-    if [[ $archi == 'arm64' ]]; then wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh && \
-    bash Miniforge3-Linux-aarch64.sh -b -f -p /opt/software; \
-    else wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
-    bash Miniforge3-Linux-x86_64.sh -b -f -p /opt/software; fi
+RUN wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
+    bash Miniforge3-Linux-x86_64.sh -b -f -p /opt/software
 
 RUN /opt/software/bin/conda config --system --prepend channels bioconda
 RUN /opt/software/bin/conda config --system --prepend channels conda-forge

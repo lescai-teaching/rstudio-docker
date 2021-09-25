@@ -1,17 +1,17 @@
-name: Build RStudio
+name: Build RStudio on AMD64
 
 on:
   push:
     paths:
       - Dockerfile
-      - .github/workflows/build_docker.yml
+      - .github/workflows/build_docker_amd64.yml
 
 env:
   # TODO: Change variable to your image's name
   SOFTWARE: rstudio
   VERSION: v1.0.0
   REGISTRY: ghcr.io
-  IMAGE_NAME: lescai-teaching/rstudio-docker
+  IMAGE_NAME: lescai-teaching/rstudio-docker-amd64
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
-          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          platforms: linux/amd64,linux/ppc64le
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
