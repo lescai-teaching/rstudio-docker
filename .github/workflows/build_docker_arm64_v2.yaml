@@ -9,7 +9,7 @@ on:
 env:
   # TODO: Change variable to your image's name
   SOFTWARE: rstudio
-  VERSION: v1.2.0
+  VERSION: v2.0.0
   REGISTRY: ghcr.io
   IMAGE_NAME: lescai-teaching/rstudio-docker-arm64
 
@@ -43,7 +43,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: type=semver,pattern={{version}},value=v1.2.0
+          tags: type=semver,pattern={{version}},value=v2.0.0
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2

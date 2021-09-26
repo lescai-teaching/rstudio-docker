@@ -28,13 +28,13 @@ RUN make
 RUN make install
 RUN ln -s /usr/local/bin/cmake /usr/bin/cmake
 
-# WORKDIR /opt/software
-# RUN curl -LOJ https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.5.2.tar.gz
-# RUN tar -xvzf salmon-1.5.2.tar.gz
-# RUN mkdir -p /opt/software/salmon-1.5.2/build
-# WORKDIR /opt/software/salmon-1.5.2/build
-# RUN cmake ..
-# RUN make
-# RUN make install
+WORKDIR /opt/software
+RUN curl -LOJ https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.5.2.tar.gz
+RUN tar -xvzf salmon-1.5.2.tar.gz
+RUN mkdir -p /opt/software/salmon-1.5.2/build
+WORKDIR /opt/software/salmon-1.5.2/build
+RUN cmake ..
+RUN make
+RUN make install
 
 WORKDIR /home/rstudio
