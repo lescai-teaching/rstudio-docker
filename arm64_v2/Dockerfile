@@ -10,7 +10,7 @@ FROM ghcr.io/lescai-teaching/rstudio-docker-arm64:1.1.0
 
 # ### salmon not available on conda arm64 repos
 
-# WORKDIR /opt/software
+WORKDIR /opt/software
 # RUN pip install numpy
 # RUN pip install MACS2
 
