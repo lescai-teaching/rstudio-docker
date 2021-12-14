@@ -66,4 +66,4 @@ jobs:
       - name: Test package
         run: |
           IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
-          docker exec $IMAGE Rscript -e "library(clusterProfiler)"
+          docker run -p 8787:8787 -e PASSWORD=student $IMAGE Rscript -e "library(clusterProfiler)"
