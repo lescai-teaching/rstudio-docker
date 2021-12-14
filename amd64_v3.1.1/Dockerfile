@@ -2,9 +2,10 @@ FROM ghcr.io/lescai-teaching/rstudio-docker-amd64:3.1.0
 
 RUN apt-get update
 RUN apt-get install -y \
-    libc6-dev
+    libglpk40
 
-COPY install.R /.
-RUN Rscript /install.R
+RUN Rscript -e "BiocManager::install(c(\
+    'clusterProfiler'\
+    ))"
 
 ENV PATH "${PATH}:/opt/software/bin"  
