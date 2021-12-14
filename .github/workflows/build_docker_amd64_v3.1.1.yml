@@ -55,6 +55,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Download image
