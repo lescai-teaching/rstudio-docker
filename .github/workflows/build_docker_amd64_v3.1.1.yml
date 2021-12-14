@@ -1,0 +1,68 @@
+name: Build RStudio on AMD64
+
+on:
+  push:
+    paths:
+      - amd64_v3.1.1/Dockerfile
+      - .github/workflows/build_docker_amd64_v3.1.1.yml
+
+env:
+  # TODO: Change variable to your image's name
+  SOFTWARE: rstudio
+  VERSION: "3.1.1"
+  REGISTRY: ghcr.io
+  IMAGE_NAME: lescai-teaching/rstudio-docker-amd64
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+        with:
+          install: true
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: type=semver,pattern={{version}},value=v3.1.1
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./amd64_v3.1.1/.
+          builder: ${{ steps.buildx.outputs.name }}
+          platforms: linux/amd64,linux/ppc64le
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download image
+        run: |
+          IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
+          docker pull $IMAGE
+
+      - name: Test package
+        run: |
+          IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
+          docker exec $IMAGE Rscript -e "library(clusterProfiler)"
