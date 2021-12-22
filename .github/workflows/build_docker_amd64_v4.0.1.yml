@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - amd64_v4.0.1/Dockerfile
+      - amd64_v4.0.1/install.R
       - .github/workflows/build_docker_amd64_v4.0.1.yml
 
 env:
