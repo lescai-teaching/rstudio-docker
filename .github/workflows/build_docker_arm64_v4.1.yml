@@ -1,17 +1,17 @@
-name: Build RStudio on AMD64
+name: Build RStudio on ARM64
 
 on:
   push:
     paths:
-      - amd64_v4/Dockerfile
-      - .github/workflows/build_docker_amd64_v4.yml
+      - arm64_v4.1/Dockerfile
+      - .github/workflows/build_docker_arm64_v4.1.yml
 
 env:
   # TODO: Change variable to your image's name
   SOFTWARE: rstudio
-  VERSION: "4.0.0"
+  VERSION: "4.1.0"
   REGISTRY: ghcr.io
-  IMAGE_NAME: lescai-teaching/rstudio-docker-amd64
+  IMAGE_NAME: lescai-teaching/rstudio-docker-arm64
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
         with:
-          platforms: all
+          platforms: arm64
 
       - name: Set up Docker Buildx
         id: buildx
@@ -43,27 +43,27 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: type=semver,pattern={{version}},value=v4.0.0
+          tags: type=semver,pattern={{version}},value=v4.1.0
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./amd64_v4/.
+          context: ./arm64_v4.1/.
           builder: ${{ steps.buildx.outputs.name }}
-          platforms: linux/amd64,linux/ppc64le
+          platforms: linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - name: Download image
-        run: |
-          IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
-          docker pull $IMAGE
-
-      - name: Test package
-        run: |
-          IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
-          docker run -p 8787:8787 -e PASSWORD=student $IMAGE Rscript -e "library(xaringan)"
+      - uses: uraimo/run-on-arch-action@v2.0.5
+        name: Test package
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: ubuntu20.04
+          run: |
+            IMAGE=${REGISTRY}/${IMAGE_NAME}:${VERSION}
+            docker run -p 8787:8787 -e PASSWORD=student $IMAGE python -c 'import Bio'
