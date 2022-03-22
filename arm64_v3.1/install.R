@@ -1,1 +1,0 @@
-BiocManager::install(c('ChIPpeakAnno', 'EnsDb.Hsapiens.v86', 'TxDb.Hsapiens.UCSC.hg38.knownGene', 'org.Hs.eg.db', 'BSgenome.Hsapiens.UCSC.hg38', 'UpSetR'))
