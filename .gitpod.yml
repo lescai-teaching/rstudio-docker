@@ -1,0 +1,4 @@
+image: ghcr.io/lescai-teaching/rstudio-docker-amd64:latest
+ports:
+  - port: 8787
+    onOpen: open-preview
