@@ -126,7 +126,9 @@ RUN bash /opt/install/install_conda.sh
 RUN conda config --system --prepend channels bioconda
 RUN conda config --system --prepend channels defaults
 
+RUN mkdir -p /opt/software
 RUN apt remove -y cmake
+WORKDIR /opt/software
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.21.3/cmake-3.21.3.tar.gz
 RUN tar -xvzf cmake-3.21.3.tar.gz
 WORKDIR /opt/software/cmake-3.21.3
@@ -139,11 +141,8 @@ RUN mkdir -p /opt/software
 COPY install_salmon_macs.sh /opt/install/install_salmon_macs.sh
 RUN bash /opt/install/install_salmon_macs.sh
 
-COPY install_tex.R /opt/install/install_tex.R
-RUN chown -R rstudio:rstudio /usr/local/lib/R/library
-USER rstudio
+COPY install_xaringan.R /opt/install/install_xaringan.R
 RUN Rscript /opt/install/install_tex.R
-USER root
 
 WORKDIR /home/rstudio
 
