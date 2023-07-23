@@ -137,12 +137,15 @@ RUN make
 RUN make install
 RUN ln -s /usr/local/bin/cmake /usr/bin/cmake
 
+COPY install_xaringan.R /opt/install/install_xaringan.R
+RUN Rscript /opt/install/install_xaringan.R
+
 RUN mkdir -p /opt/software
+COPY compiled_arm64_salmon-1.10.1.tar.gz /opt/software/compiled_arm64_salmon-1.10.1.tar.gz
 COPY install_salmon_macs.sh /opt/install/install_salmon_macs.sh
 RUN bash /opt/install/install_salmon_macs.sh
-
-COPY install_xaringan.R /opt/install/install_xaringan.R
-RUN Rscript /opt/install/install_tex.R
+ENV PATH=${PATH}:/opt/software/salmon-1.10.1/bin
+ENV LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/software/salmon-1.10.1/lib
 
 WORKDIR /home/rstudio
 

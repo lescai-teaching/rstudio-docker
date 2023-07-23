@@ -9,14 +9,6 @@ case $TARGETPLATFORM in
     "linux/arm64") 
 	## THIS RUNS APPLE SILICON / ARM64 COMMANDS
 	cd /opt/software
-	apt-get update
-	apt-get install -y libboost-all-dev
-	curl -LOJ https://github.com/COMBINE-lab/salmon/archive/refs/tags/v1.10.1.tar.gz
-	tar -xvzf salmon-1.10.1.tar.gz
-	mkdir -p /opt/software/salmon-1.10.1/build
-	cd /opt/software/salmon-1.10.1/build
-	cmake ..
-	make
-	make install
+	tar -xvzf compiled_arm64_salmon-1.10.1.tar.gz
 	;;
 esac
