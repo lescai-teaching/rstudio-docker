@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 # compiled files
 *.tar.gz
+
+## mac files
+*.DS_Store*
