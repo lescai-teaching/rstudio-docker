@@ -1,5 +1,6 @@
 # docker buildx create --platform "linux/amd64,linux/arm64" --name buildermulti --use
 docker buildx build \
+--progress=plain \
 --label org.opencontainers.image.title=rstudio-docker \
 --label org.opencontainers.image.description='container running RStudio Server on multiplatform to be used with UniPV course' \
 --label org.opencontainers.image.url=https://github.com/lescai-teaching/rstudio-docker \
