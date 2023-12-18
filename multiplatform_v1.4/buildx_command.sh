@@ -9,6 +9,6 @@ docker buildx build \
 --label org.opencontainers.image.created=2023-07-19T12:39:11.393Z \
 --label org.opencontainers.image.licenses=MIT \
 --platform linux/amd64,linux/arm64 \
---tag ghcr.io/lescai-teaching/rstudio-docker:5.0.3 \
+--tag ghcr.io/lescai-teaching/rstudio-docker:5.0.4 \
 --tag ghcr.io/lescai-teaching/rstudio-docker:latest \
 --push .
